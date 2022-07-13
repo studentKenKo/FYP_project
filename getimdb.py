@@ -54,12 +54,17 @@ def getlink(s, date):
         res = mvdetail.text
         mvsoup = BeautifulSoup(res, "html.parser")
         actorlist = mvsoup.select('a.sc-36c36dd0-1')
+        characterlist = mvsoup.select('span.sc-36c36dd0-4')
+        storyline = mvsoup.select('div.ipc-html-content ipc-html-content--base')
+        print(storyline)
         actors = []
-        char
+        characters = []
         for name in actorlist:
             actor = name.getText()
             actors.append(actor)
-        mvinfo['actors'] = actors
+        for name2 in characterlist:
+            character = name2.getText()
+            characters.append(character)
         mvinfo['title'] = mv['header']
         mvinfo['id'] = mv['link']
         mvinfo['poster'] = mvsoup.select_one('div.ipc-media img').get('src')
@@ -67,12 +72,14 @@ def getlink(s, date):
         if not mvinfo['trailer'].__contains__('https://www.imdb.com/video'):
             mvinfo['trailer'] = 'Null'
         mvinfo['runtime'] = mv['runtime']
+        mvinfo['actors'] = actors
+        mvinfo['characters'] = characters
         mvinfo['storyline'] = mvsoup.select_one('span.sc-16ede01-2').getText()
         mvinfo['releaseDate'] = str(date)
 
         # ...
 
-        print(mvinfo['actors'])
+        #print(mvinfo['characters'])
         print('Yes')
         mvlist_overall.append(mvinfo)
 
