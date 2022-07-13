@@ -62,12 +62,12 @@ def getlink(s, date):
             mvinfo['trailer'] = 'Null'
         mvinfo['runtime'] = mv['runtime']
         mvinfo['storyline'] = mvsoup.select_one('span.sc-16ede01-2').getText()
-        mvinfo['story'] = mvsoup.select_one('div.ipc-html-content-inner-div')
+        mvinfo['Actor'] = mvsoup.select_one('div.sc-36c36dd0-8').getText()
         mvinfo['releaseDate'] = str(date)
+        # mvinfo['story'] = mvsoup.select_one('div.ipc-html-content-inner-div')
         # ...
 
-        #print(mvinfo)
-        print(mvinfo['story'])
+        print(mvinfo['Actor'])
         print('Yes')
         mvlist_overall.append(mvinfo)
 
