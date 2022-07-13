@@ -46,7 +46,6 @@ def getlink(s, date):
         mvlist.append({'header': header, 'link': link, 'runtime': runtime, 'type': mvtype})
     print(mvlist)
 
-
 # Get movie data in detail page and merge data
     mvlist_overall = []
     for mv in mvlist:
@@ -54,6 +53,13 @@ def getlink(s, date):
         mvdetail = s.post('https://www.imdb.com' + mv['link'])
         res = mvdetail.text
         mvsoup = BeautifulSoup(res, "html.parser")
+        actorlist = mvsoup.select('a.sc-36c36dd0-1')
+        actors = []
+        char
+        for name in actorlist:
+            actor = name.getText()
+            actors.append(actor)
+        mvinfo['actors'] = actors
         mvinfo['title'] = mv['header']
         mvinfo['id'] = mv['link']
         mvinfo['poster'] = mvsoup.select_one('div.ipc-media img').get('src')
@@ -62,12 +68,11 @@ def getlink(s, date):
             mvinfo['trailer'] = 'Null'
         mvinfo['runtime'] = mv['runtime']
         mvinfo['storyline'] = mvsoup.select_one('span.sc-16ede01-2').getText()
-        mvinfo['Actor'] = mvsoup.select_one('div.sc-36c36dd0-8').getText()
         mvinfo['releaseDate'] = str(date)
-        # mvinfo['story'] = mvsoup.select_one('div.ipc-html-content-inner-div')
+
         # ...
 
-        print(mvinfo['Actor'])
+        print(mvinfo['actors'])
         print('Yes')
         mvlist_overall.append(mvinfo)
 
