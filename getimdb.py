@@ -31,12 +31,12 @@ def getlink(s, date):
     for mv in formalist:
         header = mv.select_one('h3.lister-item-header a').getText()
         link = mv.select_one('h3.lister-item-header a').get("href")
+        #storyline = mv.select_one('text-muted p')
         runtime = mv.select_one('span.runtime')
         if runtime != None:
             runtime = runtime.getText()
         else:
             runtime = 'Null'
-
         mvtype = mv.select_one('span.genre')
         if mvtype != None:
             mvtype = mvtype.getText().strip('\n').strip(' ')
@@ -55,17 +55,20 @@ def getlink(s, date):
         res = mvdetail.text
         mvsoup = BeautifulSoup(res, "html.parser")
         mvinfo['title'] = mv['header']
-        mvinfo['link'] = mv['link']
+        mvinfo['id'] = mv['link']
         mvinfo['poster'] = mvsoup.select_one('div.ipc-media img').get('src')
         mvinfo['trailer'] = 'https://www.imdb.com' + mvsoup.select_one('div.ipc-slate a').get('href')
         if not mvinfo['trailer'].__contains__('https://www.imdb.com/video'):
             mvinfo['trailer'] = 'Null'
         mvinfo['runtime'] = mv['runtime']
+        mvinfo['storyline'] = mvsoup.select_one('span.sc-16ede01-2').getText()
+        mvinfo['story'] = mvsoup.select_one('div.ipc-html-content-inner-div')
         mvinfo['releaseDate'] = str(date)
         # ...
 
-        print(mvinfo)
-
+        #print(mvinfo)
+        print(mvinfo['story'])
+        print('Yes')
         mvlist_overall.append(mvinfo)
 
 
@@ -97,8 +100,8 @@ create_db()
 #running program by date
 
 s = requests.Session()
-start_date = datetime.date(2000, 6, 2)
-end_date = datetime.date(2001, 6, 2)
+start_date = datetime.date(2022, 6, 1)
+end_date = datetime.date(2022, 6, 1)
 delta = datetime.timedelta(days=1)
 
 while start_date <= end_date:
