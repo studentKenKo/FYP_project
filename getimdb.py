@@ -14,7 +14,7 @@ def getlink(s, date):
         'count': 250
     }
 
-	#Get element
+	#Get IMDB Path
     # https://www.imdb.com/search/title/?title_type=feature&release_date=2022-06-01&count=250
     # lister-item.mode-advanced
 
@@ -22,16 +22,12 @@ def getlink(s, date):
     html_content = response.text
 
     soup = BeautifulSoup(html_content, "html.parser")
-    # print(soup)
 
-    # <div class="lister-item-content">
-    # formalist = soup.select('h3.lister-item-header a')
     formalist = soup.select('div.lister-item-content')
     mvlist = []
     for mv in formalist:
         header = mv.select_one('h3.lister-item-header a').getText()
         link = mv.select_one('h3.lister-item-header a').get("href")
-        #storyline = mv.select_one('text-muted p')
         runtime = mv.select_one('span.runtime')
         if runtime != None:
             runtime = runtime.getText()
@@ -55,7 +51,8 @@ def getlink(s, date):
         mvsoup = BeautifulSoup(res, "html.parser")
         actorlist = mvsoup.select('a.sc-36c36dd0-1')
         characterlist = mvsoup.select('span.sc-36c36dd0-4')
-        storyline = mvsoup.select('div.ipc-html-content ipc-html-content--base')
+        storyline = mvsoup.select('div.sc-388740f9-0')
+
         print(storyline)
         actors = []
         characters = []
