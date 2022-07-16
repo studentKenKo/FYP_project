@@ -51,9 +51,7 @@ def getlink(s, date):
         mvsoup = BeautifulSoup(res, "html.parser")
         actorlist = mvsoup.select('a.sc-36c36dd0-1')
         characterlist = mvsoup.select('span.sc-36c36dd0-4')
-        storyline = mvsoup.select('div.sc-388740f9-0')
-
-        print(storyline)
+        information = mvsoup.select('div.sc-388740f9-0')
         actors = []
         characters = []
         for name in actorlist:
@@ -72,14 +70,14 @@ def getlink(s, date):
         mvinfo['actors'] = actors
         mvinfo['characters'] = characters
         mvinfo['storyline'] = mvsoup.select_one('span.sc-16ede01-2').getText()
+        #mvinfo['storyline2'] = information.select_one('div.ipc-html-content-inner-div').getText()
         mvinfo['releaseDate'] = str(date)
-
         # ...
 
         #print(mvinfo['characters'])
-        print('Yes')
+        print(mvinfo)
         mvlist_overall.append(mvinfo)
-
+    print(mvlist_overall)
 
 # Output to json
 
