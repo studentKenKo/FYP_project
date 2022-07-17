@@ -1,13 +1,13 @@
 import threading
 import time
 #  connect Database
-import psycopg2
+import pyMySQL
 
 # Update connection string information
 host = "localhost"
-dbname = ""
-user = "admin"
+user = "root"
 password = "12345678"
+database = "db"
 sslmode = "allow"
 
 conn_string = "host={0} user={1} dbname={2} password={3}".format(host, user, dbname, password)
