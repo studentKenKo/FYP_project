@@ -1,17 +1,18 @@
 import threading
 import time
 #  connect Database
-import pyMySQL
+import pymysql.cursors
 
 # Update connection string information
-host = "localhost"
-user = "root"
-password = "12345678"
-database = "db"
-sslmode = "allow"
+# Connect to the database
+connection = pymysql.connect(host='localhost',  # server
+                             user='root',       # account
+                             password='12345678', # password
+                             database='iMDBmoive',     # datebase name
+                             cursorclass=pymysql.cursors.DictCursor)
 
-conn_string = "host={0} user={1} dbname={2} password={3}".format(host, user, dbname, password)
-conn = psycopg2.connect(conn_string)
+conn_string = "host={0} user={1} dbname={2} password={3}".format(host, user, database, password)
+conn = pymysql.connect(conn_string)
 
 # conn = psycopg2.connect("dbname=test user=postgres")
 cur = conn.cursor()
