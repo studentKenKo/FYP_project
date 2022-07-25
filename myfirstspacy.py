@@ -35,7 +35,7 @@ def spacy_tokenizer(sentence):
     # remove distracting single quotes
     sentence = re.sub('\'', '', sentence)
 
-    # remove digits adnd words containing digits
+    # remove digits and words containing digits
     sentence = re.sub('\w*\d\w*', '', sentence)
 
     # replace extra spaces with single space
@@ -51,7 +51,7 @@ def spacy_tokenizer(sentence):
 
     # remove punctunations
     sentence = re.sub(r'[^\w\s]', ' ', sentence)
-    print(sentence)
+
     # creating token object
     tokens = nlp(sentence)
 
@@ -70,4 +70,5 @@ Tom Holland 2016
 Who is peter parker
 toooom holand
 """
-spacy_tokenizer(sentence)
+result = spacy_tokenizer(sentence)
+print(result)
